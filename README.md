@@ -20,5 +20,5 @@ This project uses the MediaPipe library to detect faces in a video stream and co
 ## Notes
 
 - Ensure your camera is properly connected and accessible.
-- Adjust the detection confidence and movement thresholds in the `face_up_down_counter.py` file according to your needs.
+- Adjust the detection confidence and movement thresholds in the `countblock.py` file according to your needs.
 
