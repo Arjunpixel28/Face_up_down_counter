@@ -1,4 +1,4 @@
-# Face Up and Downward Counter
+# Face Up and Downward Counter Using Mediapipe by Google
 
 This project uses the MediaPipe library to detect faces in a video stream and count the number of times each face moves up or down. It provides a real-time count of upward and downward movements for each detected face.
 
