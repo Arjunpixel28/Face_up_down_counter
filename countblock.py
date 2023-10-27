@@ -1,16 +1,21 @@
+# Imports
 import cv2
 import mediapipe as mp
 
+# Initialize MediaPipe Face Detection module
 mp_face_detection = mp.solutions.face_detection
 mp_drawing = mp.solutions.drawing_utils
-
-# Initialize MediaPipe Face Detection module
 face_detection = mp_face_detection.FaceDetection(min_detection_confidence=0.2)
 
-cap = cv2.VideoCapture('rtsp://admin:admin@192.168.0.138')
-face_states = {}  # Dictionary to store face states (up, down)
-up_count = 0  # Counter for upward movements
-down_count = 0  # Counter for downward movements
+# Video Capture
+cap = cv2.VideoCapture(0)
+
+# Dictionary to store face states (up, down)
+face_states = {}
+
+# Counter for upward and downward movements
+up_count = 0
+down_count = 0
 
 while cap.isOpened():
     ret, frame = cap.read()
@@ -28,7 +33,6 @@ while cap.isOpened():
             bboxC = detection.location_data.relative_bounding_box
             ih, iw, _ = frame.shape
             bbox = int(bboxC.xmin * iw), int(bboxC.ymin * ih), int(bboxC.width * iw), int(bboxC.height * ih)
-
             face_id = idx  # Use the index as a unique ID for each detected face
 
             # Set initial head position and state for each face
@@ -48,7 +52,7 @@ while cap.isOpened():
             elif nose_y > face_states[face_id]['head_position'] + 5:
                 if face_states[face_id]['state'] != 'down':
                     face_states[face_id]['state'] = 'down'
-                    #down_count += 1  # Increment the downward movement counter
+                    down_count += 1  # Increment the downward movement counter
             face_states[face_id]['head_position'] = nose_y  # Update head position for the next iteration
 
             # Draw bounding box and keypoints on the frame
